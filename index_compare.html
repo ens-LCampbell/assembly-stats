@@ -153,7 +153,7 @@
           arr[index] = new Assembly (json);
           arr[index].name = assembly.replace('.','_');;
           if (views[0] == 'compare'){
-            if (index <= 1) compare(arr[0],arr[1],arr[2]);
+            if (index <= 2) compare(arr[0],arr[1],arr[2]);
           }
           else if (views[0] == 'cumulative'){
             if (index == 0){
