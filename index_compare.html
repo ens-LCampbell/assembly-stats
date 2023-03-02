@@ -78,8 +78,9 @@
       params["path"] = ["json/"]
       params["assembly"] = ["output"]
       params["view"] = ["compare"]
-      params["altView"] = ["cumulative", "table"]
+      params["altView"] = ["cumulative", "circle", "table"]
       params["altAssembly"] = ["output_secondAsm"]
+      params["thridAssembly"] = ["output_thirdAsm"]
       queries.forEach(function(q){
         parts = q.split('=')
         if (!params[parts[0]]) params[parts[0]] = [];
@@ -88,6 +89,7 @@
       var assemblies = params['assembly'];
       var path = params['path'] || "json/";
       if (params['altAssembly']) assemblies = assemblies.concat(params['altAssembly'])
+      if (params['thridAssembly']) assemblies = assemblies.concat(params['thridAssembly'])
       var views = params['view'];
       if (!views) views = ['circle']
       var div = d3.select('div#assembly_stats')
@@ -151,7 +153,7 @@
           arr[index] = new Assembly (json);
           arr[index].name = assembly.replace('.','_');;
           if (views[0] == 'compare'){
-            if (index <= 1) compare(arr[0],arr[1]);
+            if (index <= 1) compare(arr[0],arr[1],arr[2]);
           }
           else if (views[0] == 'cumulative'){
             if (index == 0){
@@ -181,16 +183,29 @@
         });
       })
 
-      function compare (asm1,asm2){
+      function compare (asm1,asm2,asm3){
         if (!asm1) return;
         if (!asm2) return;
+        if (!asm3) return;
         plot_container.append('div').attr('id','assembly_stats_left').append('p').text(assemblies[0]);
-        plot_container.append('div').attr('id','assembly_stats_right').append('p').text(assemblies[1]);
-        var span = Math.max(asm1.assembly,asm2.assembly)
-        var longest = Math.max(asm1.scaffolds[0],asm2.scaffolds[0])
+        plot_container.append('div').attr('id','assembly_stats_centre').append('p').text(assemblies[1]);
+        plot_container.append('div').attr('id','assembly_stats_right').append('p').text(assemblies[2]);
+        var span = Math.max(asm1.assembly,asm2.assembly,asm3.assembly)
+        var longest = Math.max(asm1.scaffolds[0],asm2.scaffolds[0],asm3.scaffolds[0])
         asm1.drawPlot('assembly_stats_left',longest,span);
         asm2.drawPlot('assembly_stats_right',longest,span);
+        asm3.drawPlot('assembly_stats_right',longest,span);
       }
+      // function compare (asm1,asm2){
+      //   if (!asm1) return;
+      //   if (!asm2) return;
+      //   plot_container.append('div').attr('id','assembly_stats_left').append('p').text(assemblies[0]);
+      //   plot_container.append('div').attr('id','assembly_stats_right').append('p').text(assemblies[1]);
+      //   var span = Math.max(asm1.assembly,asm2.assembly)
+      //   var longest = Math.max(asm1.scaffolds[0],asm2.scaffolds[0])
+      //   asm1.drawPlot('assembly_stats_left',longest,span);
+      //   asm2.drawPlot('assembly_stats_right',longest,span);
+      // }
 
     </script>
 
