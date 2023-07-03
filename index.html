@@ -77,8 +77,9 @@
       var params = []
       params["path"] = ["json/"]
       params["assembly"] = ["output"]
-      params["view"] = ["circle"]
+      params["view"] = ["compare"]
       params["altView"] = ["cumulative", "table"]
+      params["altAssembly"] = ["output_secondAsm"]
       queries.forEach(function(q){
         parts = q.split('=')
         if (!params[parts[0]]) params[parts[0]] = [];
