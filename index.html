@@ -76,10 +76,10 @@
       var queries = window.location.href.replace(/^.+\?/,'').split('&')
       var params = []
       params["path"] = ["json/"]
-      params["assembly"] = ["phagocata.morgani"]
+      params["assembly"] = ["p.morgani"]
       params["view"] = ["compare"]
       params["altView"] = ["cumulative", "table"]
-      params["altAssembly"] = ["obama.nungara"]
+      params["altAssembly"] = ["o.nungara"]
       queries.forEach(function(q){
         parts = q.split('=')
         if (!params[parts[0]]) params[parts[0]] = [];
